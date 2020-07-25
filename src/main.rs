@@ -8,5 +8,11 @@ fn main() {
     // thread 'main' panicked at 'attempt to divide by zero' が起きる
     // 実行時に「RUST_BACKTRACE=1 cargo run」と環境変数をセットするとスタックトレースが表示される
     // JavaのRuntimeExceptionに近いエラー
-    let _will_error_items = pirate_share(100, 0);
+    let result = std::panic::catch_unwind(|| {
+        // catch_unwind()でpanicを補足できるが、すべてのpanicをcatchできる訳ではない
+        // try-catchのように使うことは推奨されない
+        let _will_error_items = pirate_share(100, 0);
+    });
+
+    assert!(result.is_err());
 }
