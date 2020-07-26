@@ -14,6 +14,6 @@ fn main() {
         let _will_error_items = pirate_share(100, 0);
     });
 
-    let _err = result.as_ref().err(); // Result<T, E>から成功値/エラー値を借用しResult<&T, &E>として処理
+    let _err = result.as_ref().err(); // Result<T, E>から成功値/エラー値を借用しResult<&T, &E>として処理 ここではOption<&E>を取り出している
     assert!(result.is_err());
 }
