@@ -1,9 +1,9 @@
 use std::error::Error;
 use std::io::{Write, stderr};
 
-fn print_error(mut err: &Error) {
+fn print_error(mut err: &dyn Error) {
     let _ = writeln!(stderr(), "error: {}", err);
-    while let Some(cause) = err.cause() {
+    while let Some(cause) = err.source() {
         let _ = writeln!(stderr(), "caused by: {}", cause);
         err = cause;
     }
