@@ -1,3 +1,14 @@
+use std::error::Error;
+use std::io::{Write, stderr};
+
+fn print_error(mut err: &Error) {
+    let _ = writeln!(stderr(), "error: {}", err);
+    while let Some(cause) = err.cause() {
+        let _ = writeln!(stderr(), "caused by: {}", cause);
+        err = cause;
+    }
+}
+
 fn pirate_share(total: u64, crew_size: usize) -> u64 {
     let half = total / 2;
     half / crew_size as u64
