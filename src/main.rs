@@ -27,4 +27,12 @@ fn main() {
 
     let _err = result.as_ref().err(); // Result<T, E>から成功値/エラー値を借用しResult<&T, &E>として処理 ここではOption<&E>を取り出している
     assert!(result.is_err());
+
+    // すべてのエラーと結果を表現する型を定義
+    type GenError = Box<dyn std::error::Error>;
+    type GenResult<T> = Result<T, GenError>;
+
+    let io_error = std::io::Error::new(
+        std::io::ErrorKind::Other, "timed out");
+    let _my_error = GenError::from(io_error); // Fromトレイトのfrom()メソッドでエラーを変換
 }
