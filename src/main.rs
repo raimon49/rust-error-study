@@ -35,4 +35,6 @@ fn main() {
     let io_error = std::io::Error::new(
         std::io::ErrorKind::Other, "timed out");
     let _my_error = GenError::from(io_error); // Fromトレイトのfrom()メソッドでエラーを変換
+
+    let _ = writeln!(stderr(), "error: {}", _my_error); // Resultを無視したい場合(unused `std::result::Result` that must be used)
 }
